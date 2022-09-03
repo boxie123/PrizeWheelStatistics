@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "prizewheelstatistics"
+version = "0.1.0"
+description = "抽奖转盘礼物统计"
+authors = ["铂屑 <1824390830@qq.com>"]
+
+[tool.poetry.dependencies]
+python = "~3.10.6"
+openpyxl = "^3.0.10"
+pandas = "^1.4.4"
+pyinstaller = "^5.3"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^5.0.4"
+black = {version = "^22.8.0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+default = true
