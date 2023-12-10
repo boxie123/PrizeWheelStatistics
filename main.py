@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from pandas import DataFrame
 
@@ -47,9 +48,19 @@ def txt_to_dict() -> dict[str]:
 def dict_to_xlsx(data_dict: dict):
     print('正在写入xlsx文件……')
     dataframe = DataFrame(data_dict).T
-    dataframe.to_excel("data.xlsx", "data", na_rep=0)
+    while True:
+        time_now = datetime.now().strftime("%Y-%m-%dT%H_%M_%S")
+        file_name = f"data_{time_now}.xlsx"
+        try:
+            dataframe.to_excel(file_name, "data", na_rep=0)
+            break
+        except PermissionError as e:
+            print(f"写入文件失败: 权限不足\n可能是存在同名文件‘{file_name}’或此文件夹无写入权限")
+            input(f"{e}\n回车退出程序")
+            exit()
+    return file_name
 
 
 if __name__ == "__main__":
-    dict_to_xlsx(txt_to_dict())
-    input("完成！请查看与本程序同文件夹的‘data.xlsx’。\n回车退出程序")
+    file_name = dict_to_xlsx(txt_to_dict())
+    input(f"完成！请查看与本程序同文件夹的‘{file_name}’。\n回车退出程序")
